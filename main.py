@@ -16,6 +16,8 @@ def cronjob():
 
     OPENSEA_SHARED_STOREFRONT_ADDRESS = '0x495f947276749Ce646f68AC8c248420045cb7b5e'
 
+    print('Checking contract {0} for new sales'.format(contract))
+
     # get current time in utc time zone
     ct = datetime.utcnow()
     # specify time range
