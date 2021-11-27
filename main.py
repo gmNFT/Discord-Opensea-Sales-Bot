@@ -8,6 +8,7 @@ def cronjob():
 
     url = "https://api.opensea.io/api/v1/events"
 
+    # load discord channel URL
     wh_url = os.environ.get('CHANNEL_URL')
     webhook = Webhook.from_url(wh_url, adapter=RequestsWebhookAdapter())
 
@@ -17,6 +18,9 @@ def cronjob():
     OPENSEA_SHARED_STOREFRONT_ADDRESS = '0x495f947276749Ce646f68AC8c248420045cb7b5e'
 
     print('Checking contract {0} for new sales'.format(contract))
+
+    # load Opensea API key
+    opensea_api_key = os.environ.get('OS_API_KEY')
 
     # get current time in utc time zone
     ct = datetime.utcnow()
@@ -34,7 +38,8 @@ def cronjob():
                    "offset":0,
                    "limit":"50"}
 
-    headers = {"Accept": "application/json"}
+    headers = {"Accept": "application/json",
+               "X-API-KEY": opensea_api_key}
 
     response = requests.request("GET", url, headers=headers, params=querystring)
 
